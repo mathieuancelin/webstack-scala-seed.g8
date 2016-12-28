@@ -1,3 +1,9 @@
+import TwirlKeys._
+
+lazy val root = (project in file(".")).enablePlugins(SbtTwirl).settings(
+  sourceDirectories in (Compile, compileTemplates) := Seq(baseDirectory.value / "app")
+)
+
 name := """$name$"""
 
 organization := "$organization$"
