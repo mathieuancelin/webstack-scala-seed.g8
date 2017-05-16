@@ -2,7 +2,7 @@ import java.util.concurrent.TimeUnit
 
 import org.reactivecouchbase.webstack.{BootstrappedContext, ClassPathDirectory, WebStackApp}
 import org.reactivecouchbase.webstack.env.Env
-import org.reactivecouchbase.webstack.ws.WS
+import org.reactivecouchbase.webstack.ws._
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
 import scala.concurrent.duration.Duration
@@ -34,7 +34,7 @@ class BasicTestSpec extends FlatSpec with Matchers with BeforeAndAfterAll {
 
   "My app" should "be return a homepage" in {
     val future = for {
-      resp     <- WS.host("http://localhost", port).withPath("/").call()
+      resp     <- HttpClient("http", "localhost", port).withPath("/").call()
       body     <- resp.body
     } yield (resp.status, resp.header("Content-Type").getOrElse("none"))
     val (status, contentType) = future.await
